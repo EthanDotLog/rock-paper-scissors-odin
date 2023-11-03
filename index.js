@@ -1,3 +1,33 @@
+//finding elements on the page
+const userInputEl = document.querySelector("#user-input-el");
+const userSubmitBtn = document.querySelector("#user-submit-btn");
+const userWinsEl = document.querySelector("#user-wins-el");
+const pcWinsEl = document.querySelector("#pc-wins-el");
+const roundResponseEl = document.querySelector("#round-response-el");
+const noLivesMessageEl = document.querySelector("#no-lives-message-el");
+const resetBtn = document.querySelector("#reset-btn");
+
+//buttons
+
+userSubmitBtn.addEventListener('click', function() {
+    const playerChoice = userInputEl.value.toLowerCase();
+    console.log(playerChoice)
+})
+
+resetBtn.addEventListener('click', function() {
+
+})
+
+
+
+
+
+
+
+
+
+
+
 function getComputerChoice() {
     const randomNum = Math.floor((Math.random() * 3) +1)
 
@@ -45,5 +75,13 @@ function playRound(playerChoice, computerChoice) {
         };
     };
 };
+
+
+
+function game() {
+
+};
+
+
 
 playRound(playerSelection, computerSelection)
