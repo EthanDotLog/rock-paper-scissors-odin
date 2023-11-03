@@ -7,24 +7,42 @@ const roundResponseEl = document.querySelector("#round-response-el");
 const noLivesMessageEl = document.querySelector("#no-lives-message-el");
 const resetBtn = document.querySelector("#reset-btn");
 
+
+
+//variables for data
+let userChoice;
+let userWins = 0;
+let pcWins = 0;
+
+
+
+
 //buttons
 
 userSubmitBtn.addEventListener('click', function() {
-    const playerChoice = userInputEl.value.toLowerCase();
-    console.log(playerChoice)
-})
+    const playerChoice = userInputEl.value;
+    if (playerChoice === 'rock' | playerChoice === 'paper' | playerChoice === 'scissors') {
+        userChoice = playerChoice
+        game()
+    }
+});
 
 resetBtn.addEventListener('click', function() {
-
-})
-
-
-
+    userWinsEl.textContent = 0;
+    pcWinsEl.textContent = 0;
+});
 
 
 
 
 
+function game() {
+    if (pcWins >= 5) {
+        noLivesMessageEl.textContent = "You cant play if you have already lost 5 rounds Reset and try again"
+    } else {
+        printResults(playRound(userChoice, getComputerChoice()))
+    }
+};
 
 
 
@@ -41,8 +59,6 @@ function getComputerChoice() {
 }
 
 
-const playerSelection = "Scissors";
-const computerSelection = getComputerChoice();
 
 
 function playRound(playerChoice, computerChoice) {
@@ -51,37 +67,40 @@ function playRound(playerChoice, computerChoice) {
 
     if (player === 'rock') {
         if (pc === 'scissors') {
+            ++userWins
             return `You Win - ${player} always beats ${pc}`
         } else if (pc === 'paper') {
+            ++pcWins
             return `You Lose - ${player} can't beat ${pc}`
         } else {
             return `You Tied - ${player} can't beat ${pc}`
         };    
     } else if (player === 'scissors') {
         if (pc === 'paper') {
+            ++userWins
             return `You Win - ${player} always beats ${pc}`
         } else if (pc === 'rock') {
+            ++pcWins
             return `You Lose - ${player} can't beat ${pc}`
         } else {
             return `You Tied - ${player} can't beat ${pc}`
         };
     } else {
         if (pc === 'rock') {
+            ++userWins
             return `You Win - ${player} always beats ${pc}`
         } else if (pc === 'scissors') {
+            ++pcWins
             return `You Lose - ${player} can't beat ${pc}`
         } else {
             return `You Tied - ${player} can't beat ${pc}`
         };
     };
+    userInputEl.value = ""
 };
 
-
-
-function game() {
-
+function printResults(message) {
+    userWinsEl.textContent = userWins
+    pcWinsEl.textContent = pcWins
+    roundResponseEl.textContent = message
 };
-
-
-
-playRound(playerSelection, computerSelection)
