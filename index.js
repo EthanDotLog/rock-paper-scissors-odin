@@ -3,6 +3,7 @@ const rockBtn = document.querySelector("#rock-btn");
 const paperBtn = document.querySelector("#paper-btn");
 const scissorsBtn = document.querySelector("#scissors-btn");
 const submitBtn = document.querySelector("#submit-btn");
+const submitBtnTxt = document.querySelector("#submit-btn-txt");
 
 
 let playerChoice;
@@ -19,20 +20,73 @@ let tie = false;
 rockBtn.addEventListener('click', function() {
     highlight(rockBtn)
     playerChoice = "rock"
+    printSelected()
 });
 paperBtn.addEventListener('click', function() {
     highlight(paperBtn)
     playerChoice = "paper"
+    printSelected()
 });
 scissorsBtn.addEventListener('click', function() {
     highlight(scissorsBtn)
     playerChoice = "scissors"
+    printSelected()
 });
 submitBtn.addEventListener('click', function() {
     highlight()
     gamestart()
 });
 
+
+
+
+
+
+let playerImgArray = [
+    "./assets/face5.png",
+    "./assets/face4.png",
+    "./assets/face3.png",
+    "./assets/face2.png",
+    "./assets/face1.png"
+] 
+console.log(playerImgArray[0])
+console.log(playerImgArray[1])
+console.log(playerImgArray[2])
+console.log(playerImgArray[3])
+console.log(playerImgArray[4])
+
+
+
+const displayDiv = document.createElement('div')
+displayDiv.setAttribute('id', 'main-div')
+
+const pcDiv = document.createElement('div')
+pcDiv.setAttribute('class', 'card-div')
+
+const playerDiv = document.createElement('div')
+playerDiv.setAttribute('class', 'card-div')
+
+const roundDiv = document.createElement('div')
+roundDiv.setAttribute('class', 'round-div')
+
+const pcImg = document.createElement('img')
+pcImg.setAttribute('class', 'card-img')
+pcImg.setAttribute('src', './assets/computer.gif')
+
+const playerImg = document.createElement('img')
+pcImg.setAttribute('class', '')
+
+
+
+
+
+
+
+
+
+function printSelected() {
+    submitBtnTxt.textContent = playerChoice
+}
 
 function randomChoice() {
     let num = Math.floor((Math.random() * 3) + 1);
