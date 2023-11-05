@@ -1,124 +1,118 @@
-//finding elements on the page
-const userInputEl = document.querySelector("#user-input-el");
-const userSubmitBtn = document.querySelector("#user-submit-btn");
-const userWinsEl = document.querySelector("#user-wins-el");
-const pcWinsEl = document.querySelector("#pc-wins-el");
-const roundResponseEl = document.querySelector("#round-response-el");
-const noLivesMessageEl = document.querySelector("#no-lives-message-el");
-const resetBtn = document.querySelector("#reset-btn");
-const roundCount = document.querySelector("#round-count")
+const startEl = document.querySelector("#start-el");
+const rockBtn = document.querySelector("#rock-btn");
+const paperBtn = document.querySelector("#paper-btn");
+const scissorsBtn = document.querySelector("#scissors-btn");
+const submitBtn = document.querySelector("#submit-btn");
 
 
-
-//variables for data
-let userChoice;
-let userWins = 0;
+let playerChoice;
+let pcChoice;
+let rounds = 0;
+let playerWins = 0;
 let pcWins = 0;
-let round = 0;
+let displayTies = 0
+let win = false;
+let loss = false;
+let tie = false;
 
 
-
-
-//buttons
-//user submit checks user input for eligibility - clears the input field - starts the game
-userSubmitBtn.addEventListener('click', function() {
-    const playerChoice = userInputEl.value;
-    if (playerChoice === 'rock' | playerChoice === 'paper' | playerChoice === 'scissors') {
-        userChoice = playerChoice
-        clearinput()
-        game()
-    } else {
-        roundResponseEl.textContent = `I am sorry, ${userInputEl.value} is not an allowed choice`
-        clearinput()
-    }
+rockBtn.addEventListener('click', function() {
+    highlight(rockBtn)
+    playerChoice = "rock"
+});
+paperBtn.addEventListener('click', function() {
+    highlight(paperBtn)
+    playerChoice = "paper"
+});
+scissorsBtn.addEventListener('click', function() {
+    highlight(scissorsBtn)
+    playerChoice = "scissors"
+});
+submitBtn.addEventListener('click', function() {
+    highlight()
+    gamestart()
 });
 
-//rests the game values and txt fields via a function
-resetBtn.addEventListener('click', function() {
-    reset()
-})
 
-//functions
-//checks if you are under 5 losses, adds 1 to the round counter, prints - runs play round
-function game() {
-    if (pcWins >= 5) {
-        noLivesMessageEl.textContent = "You cant play if you have already lost 5 rounds - Reset and try again"
+function randomChoice() {
+    let num = Math.floor((Math.random() * 3) + 1);
+    if (num === 1) {
+        return "rock"
+    } else if (num === 2) {
+        return "paper"
     } else {
-        ++round
-        printResults(playRound(userChoice, getComputerChoice()))
-    }
-};
-
-//gets the computer choice using a random number generator that gives 1-3 as results
-function getComputerChoice() {
-    const randomNum = Math.floor((Math.random() * 3) +1)
-
-    if (randomNum === 1) {
-        return `Rock`
-    } else if (randomNum === 2) {
-        return 'Paper'
-    } else {
-        return 'Scissors'
-    }
-}
-
-//puts 2 variables against each other in rock paper scissors for 1 round, adds wins and losses, and returns a statement 
-function playRound(playerChoice, computerChoice) {
-    const player = playerChoice.toLowerCase();
-    const pc = computerChoice.toLowerCase();
-
-    if (player === 'rock') {
-        if (pc === 'scissors') {
-            ++userWins
-            return `You Win - ${player} always beats ${pc}`
-        } else if (pc === 'paper') {
-            ++pcWins
-            return `You Lose - ${player} can't beat ${pc}`
-        } else {
-            return `You Tied - ${player} can't beat ${pc}`
-        };    
-    } else if (player === 'scissors') {
-        if (pc === 'paper') {
-            ++userWins
-            return `You Win - ${player} always beats ${pc}`
-        } else if (pc === 'rock') {
-            ++pcWins
-            return `You Lose - ${player} can't beat ${pc}`
-        } else {
-            return `You Tied - ${player} can't beat ${pc}`
-        };
-    } else {
-        if (pc === 'rock') {
-            ++userWins
-            return `You Win - ${player} always beats ${pc}`
-        } else if (pc === 'scissors') {
-            ++pcWins
-            return `You Lose - ${player} can't beat ${pc}`
-        } else {
-            return `You Tied - ${player} can't beat ${pc}`
-        };
+        return "scissors"
     };
 };
 
-//prints the results, requires a input for the message el
-function printResults(message) {
-    userWinsEl.textContent = userWins
-    pcWinsEl.textContent = pcWins
-    roundResponseEl.textContent = message
-    roundCount.textContent = round
-};
 
-//clears the user input field only
-function clearinput() {
-    userInputEl.textContent = "";
-    userInputEl.value = "";
+function highlight(choice) {
+    rockBtn.setAttribute('style', 'background-color: rgba(242, 27, 63, .5);')
+    paperBtn.setAttribute('style', 'background-color: rgba(242, 27, 63, .5);')
+    scissorsBtn.setAttribute('style', 'background-color: rgba(242, 27, 63, .5);')
+/*     choice.setAttribute('style', 'background-color: rgba(242, 27, 63, 1);') */
+    if (choice !== undefined) {
+        choice.setAttribute('style', 'background-color: rgba(242, 27, 63, 1);')
+    }
 }
 
-//resets everything
-function reset() {
-    userWins = 0
-    pcWins = 0
-    round = 0
-    message = ""
-    printResults(message)
+
+function gamestart() {
+    if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
+    playRound(randomChoice(), playerChoice)
+    addScore()
+    endRound()    
+    } else (
+        submitBtn.textContent = "You must make a selection"
+    )
+}
+
+function endRound() {
+    playerChoice = ""
+    pcChoice = ""
+    win = false
+    loss = false
+    tie = false
+}
+
+function addScore() {
+    ++rounds
+    if (win === true) {
+        ++playerWins
+    } else if (loss === true) {
+        ++pcWins
+    } else if (tie === true) {
+        ++displayTies
+    };
+}
+
+function playRound(pc, user) {
+    pcChoice = pc
+
+    if (user === "rock") {
+        if (pc === "rock") {
+            tie = true;
+        } else if (pc === 'paper') {
+            loss = true;
+        } else {
+            win = true;
+        }
+    } else if (user === "paper") {
+        if (pc === "rock") {
+            win = true;
+        } else if (pc === 'paper') {
+            tie = true;
+        } else {
+            loss = true;
+        }
+    } else if (user === "scissors") {
+        if (pc === "rock") {
+            loss = true;
+        } else if (pc === 'paper') {
+            win = true;
+        } else {
+            tie = true;
+        }
+    }
+
 }

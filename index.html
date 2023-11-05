@@ -5,25 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
     <link rel="stylesheet" href="./style.css">
+    <script src="./index.js" defer type="module"></script>
 </head>
 <body>
-    <div>
-        <h1>Rock - Paper - Scissors</h1>
-        <p>You know the rules, but can you last 5 rounds?</p>
-        <input id="user-input-el" type="text" placeholder="rock/paper/scissors">
-        <button id="user-submit-btn">Round: <span id="round-count">0</span> - Click To Start</button>
+    <div id="title-section">
+        <h1>Rock, Paper, Scissors</h1>
+        <p>Can you beat the master computer in the ultimate battle of savage weaponry?</p>
+        <div id="head-img-container"><img src="./assets/hero.svg"></div>
+        <h2>Rules of the game</h2>
+        <p>If you win, get a point, and have a chance to win the next round. But if you lose, you'll be one step closer to elimination. at 5 loses you are eliminated... here is a reminder on what your options are.</p>
+        <ul>
+            <li>Rock: Rock on, dude! A solid choice, but can be beaten by paper</li>
+            <li>Paper: Paper cuts are the worst... A versatile choice, but can be beaten by scissors</li>
+            <li>Scissors: I'm not sure why scissors are in this game, they're clearly the worst choice. But whatever, I'm here for a good time, not a long time! A risky choice, but can beat rock</li>
+        </ul>
+        <p>best of luck out there, the computer is fierce!!!</p>
     </div>
-    <div>
-        <div>
-            <h2>Your Wins: <span id="user-wins-el"></span></h2>
-            <h2>Computer Wins: <span id="pc-wins-el"></span></h2>
-        </div>
-        <h4 id="round-response-el"></h4>
+    <div id="button-container">
+    <button id="rock-btn"><img src="./assets/rock.png"></button>
+    <button id="paper-btn"><img src="./assets/paper.gif"></button>
+    <button id="scissors-btn"><img src="./assets/scissors.gif"></button>
     </div>
-    <h2 id="no-lives-message-el"></h2>
-    <button id="reset-btn">I CAN DO BETTER, RESTART</button>
+    <div id="submit-btn-container">
+    <button id="submit-btn">confirm _____ as your weaponry?</button>
+    </div>
+    <div id="start-el">
 
-    
-    <script src="./index.js"></script>
+    </div>
 </body>
 </html>
