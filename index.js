@@ -5,7 +5,6 @@ const scissorsBtn = document.querySelector("#scissors-btn");
 const submitBtn = document.querySelector("#submit-btn");
 const submitBtnTxt = document.querySelector("#submit-btn-txt");
 
-
 let playerChoice;
 let pcChoice;
 let rounds = 0;
@@ -15,6 +14,15 @@ let displayTies = 0
 let win = false;
 let loss = false;
 let tie = false;
+let playerImgArray = [
+    "./assets/face5.png",
+    "./assets/face4.png",
+    "./assets/face3.png",
+    "./assets/face2.png",
+    "./assets/face1.png",
+    "./assets/face1.png"
+]
+
 
 
 rockBtn.addEventListener('click', function() {
@@ -22,65 +30,23 @@ rockBtn.addEventListener('click', function() {
     playerChoice = "rock"
     printSelected()
 });
+
 paperBtn.addEventListener('click', function() {
     highlight(paperBtn)
     playerChoice = "paper"
     printSelected()
 });
+
 scissorsBtn.addEventListener('click', function() {
     highlight(scissorsBtn)
     playerChoice = "scissors"
     printSelected()
 });
+
 submitBtn.addEventListener('click', function() {
     highlight()
     gamestart()
 });
-
-
-
-
-
-
-let playerImgArray = [
-    "./assets/face5.png",
-    "./assets/face4.png",
-    "./assets/face3.png",
-    "./assets/face2.png",
-    "./assets/face1.png"
-] 
-console.log(playerImgArray[0])
-console.log(playerImgArray[1])
-console.log(playerImgArray[2])
-console.log(playerImgArray[3])
-console.log(playerImgArray[4])
-
-
-
-const displayDiv = document.createElement('div')
-displayDiv.setAttribute('id', 'main-div')
-
-const pcDiv = document.createElement('div')
-pcDiv.setAttribute('class', 'card-div')
-
-const playerDiv = document.createElement('div')
-playerDiv.setAttribute('class', 'card-div')
-
-const roundDiv = document.createElement('div')
-roundDiv.setAttribute('class', 'round-div')
-
-const pcImg = document.createElement('img')
-pcImg.setAttribute('class', 'card-img')
-pcImg.setAttribute('src', './assets/computer.gif')
-
-const playerImg = document.createElement('img')
-pcImg.setAttribute('class', '')
-
-
-
-
-
-
 
 
 
@@ -99,17 +65,14 @@ function randomChoice() {
     };
 };
 
-
 function highlight(choice) {
     rockBtn.setAttribute('style', 'background-color: rgba(242, 27, 63, .5);')
     paperBtn.setAttribute('style', 'background-color: rgba(242, 27, 63, .5);')
     scissorsBtn.setAttribute('style', 'background-color: rgba(242, 27, 63, .5);')
-/*     choice.setAttribute('style', 'background-color: rgba(242, 27, 63, 1);') */
     if (choice !== undefined) {
         choice.setAttribute('style', 'background-color: rgba(242, 27, 63, 1);')
     }
 }
-
 
 function gamestart() {
     if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
@@ -138,6 +101,7 @@ function addScore() {
     } else if (tie === true) {
         ++displayTies
     };
+    pcImg.setAttribute('src', playerImgArray[pcWins])
 }
 
 function playRound(pc, user) {
@@ -170,3 +134,82 @@ function playRound(pc, user) {
     }
 
 }
+
+
+
+
+const displayDiv = document.createElement('div')
+displayDiv.setAttribute('id', 'main-div')
+
+
+
+const pcDiv = document.createElement('div')
+pcDiv.setAttribute('class', 'card-div')
+
+const pcImg = document.createElement('img')
+pcImg.setAttribute('class', 'card-img')
+pcImg.setAttribute('src', './assets/computer.gif')
+
+const pcInfoContainer = document.createElement('div')
+pcInfoContainer.setAttribute('class', 'info-container')
+
+const pcInfoName = document.createElement('h2')
+pcInfoName.textContent = "Master Computer"
+pcInfoName.setAttribute('class', 'info-name')
+
+const pcInfoChoice = document.createElement('h3')
+pcInfoChoice.textContent = `Choice of weapon ${pcChoice}`
+pcInfoChoice.setAttribute('class', 'info-choice')
+
+const pcInfoWins = document.createElement('h3')
+pcInfoWins.textContent = `Wins: ${pcWins} Loss: ${playerWins}`
+pcInfoWins.setAttribute('info-wins')
+
+
+
+const roundDiv = document.createElement('div')
+roundDiv.setAttribute('class', 'round-div')
+
+const roundTopDiv = document.createElement('div')
+
+const roundTopText = document.createElement('h2')
+roundTopText.textContent = "Round"
+roundTopText.setAttribute('class', 'center-txt')
+const roundTopNumText = document.createElement('h3')
+roundTopNumText.textContent = rounds
+roundTopNumText.setAttribute('id', 'round-num')
+
+const roundBottomDiv = document.createElement('div')
+
+const roundBottomLeftDiv = document.createElement('div')
+roundBottomLeftDiv.setAttribute('id', 'center-w')
+roundBottomLeftDiv.setAttribute('class', 'w-l-box')
+roundBottomLeftDiv.textContent = "w"
+const roundBottomRightDiv = document.createElement('div')
+roundBottomRightDiv.setAttribute('id', 'center-l')
+roundBottomRightDiv.setAttribute('class', 'w-l-box')
+roundBottomRightDiv.textContent = "L"
+
+
+
+const playerDiv = document.createElement('div')
+playerDiv.setAttribute('class', 'card-div')
+
+const playerImg = document.createElement('img')
+pcImg.setAttribute('class', 'card-img')
+pcImg.setAttribute('src', playerImgArray[pcWins])
+
+const playerInfoContainer = document.createElement('div')
+playerInfoContainer.setAttribute('class', 'info-container')
+
+const playerInfoName = document.createElement('h2')
+playerInfoName.textContent = 'user'
+playerInfoName.setAttribute('class', 'info-name')
+
+const playerInfoChoice = document.createElement('h3')
+playerInfoChoice.textContent = `Choice of weapon ${playerChoice}`
+playerInfoChoice.setAttribute('class', 'info-choice')
+
+const playerInfoWins = document.createElement('h3')
+playerInfoWins.textContent = `Wins: ${playerWins} Loss: ${pcWins}`
+playerInfoWins.setAttribute('info-wins')
