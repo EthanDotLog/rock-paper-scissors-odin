@@ -14,7 +14,7 @@ let displayTies = 0
 let win = false;
 let loss = false;
 let tie = false;
-let playerImgArray = [
+const playerImgArray = [
     "./assets/face5.png",
     "./assets/face4.png",
     "./assets/face3.png",
@@ -45,7 +45,7 @@ scissorsBtn.addEventListener('click', function() {
 
 submitBtn.addEventListener('click', function() {
     highlight()
-    gamestart()
+    gamestart(playerChoice)
 });
 
 
@@ -74,10 +74,11 @@ function highlight(choice) {
     }
 }
 
-function gamestart() {
-    if (playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors") {
-    playRound(randomChoice(), playerChoice)
+function gamestart(player) {
+    if (player === "rock" || player === "paper" || player === "scissors") {
+    playRound(randomChoice(), player)
     addScore()
+    updatePage()
     endRound()    
     } else (
         submitBtn.textContent = "You must make a selection"
@@ -135,11 +136,29 @@ function playRound(pc, user) {
 
 }
 
+function updatePage() {
+    pcInfoChoice.textContent = `Choice of weapon ${pcChoice}`
+    pcInfoWins.textContent = `Wins: ${pcWins} Loss: ${playerWins}`
+    roundTopNumText.textContent = rounds
+    playerInfoChoice.textContent = `Choice of weapon ${pcChoice}`
+    playerInfoWins.textContent = `Wins: ${pcWins} Loss: ${playerWins}`
+    playerImg.setAttribute('src', `${playerImgArray[pcWins]}`)
+    pcImg.setAttribute('src', './assets/computer.gif')
+    if (win === true) {
+        roundBottomRightDiv.setAttribute('style', 'background: var(--green);')
+        roundBottomLeftDiv.setAttribute('style', 'background: ;')
+    } else {
+        roundBottomLeftDiv.setAttribute('style', 'background: var(--red);')
+        roundBottomRightDiv.setAttribute('style', 'background: ;')
+    }
+}
 
 
 
-const displayDiv = document.createElement('div')
+
+const displayDiv = window.document.createElement('div')
 displayDiv.setAttribute('id', 'main-div')
+
 
 
 
@@ -163,7 +182,7 @@ pcInfoChoice.setAttribute('class', 'info-choice')
 
 const pcInfoWins = document.createElement('h3')
 pcInfoWins.textContent = `Wins: ${pcWins} Loss: ${playerWins}`
-pcInfoWins.setAttribute('info-wins')
+pcInfoWins.setAttribute('class', 'info-wins')
 
 
 
@@ -184,11 +203,11 @@ const roundBottomDiv = document.createElement('div')
 const roundBottomLeftDiv = document.createElement('div')
 roundBottomLeftDiv.setAttribute('id', 'center-w')
 roundBottomLeftDiv.setAttribute('class', 'w-l-box')
-roundBottomLeftDiv.textContent = "w"
+roundBottomLeftDiv.textContent = "L"
 const roundBottomRightDiv = document.createElement('div')
 roundBottomRightDiv.setAttribute('id', 'center-l')
 roundBottomRightDiv.setAttribute('class', 'w-l-box')
-roundBottomRightDiv.textContent = "L"
+roundBottomRightDiv.textContent = "W"
 
 
 
@@ -196,8 +215,8 @@ const playerDiv = document.createElement('div')
 playerDiv.setAttribute('class', 'card-div')
 
 const playerImg = document.createElement('img')
-pcImg.setAttribute('class', 'card-img')
-pcImg.setAttribute('src', playerImgArray[pcWins])
+playerImg.setAttribute('id', 'card-img')
+playerImg.setAttribute('src', `${playerImgArray[pcWins]}`)
 
 const playerInfoContainer = document.createElement('div')
 playerInfoContainer.setAttribute('class', 'info-container')
@@ -212,4 +231,23 @@ playerInfoChoice.setAttribute('class', 'info-choice')
 
 const playerInfoWins = document.createElement('h3')
 playerInfoWins.textContent = `Wins: ${playerWins} Loss: ${pcWins}`
-playerInfoWins.setAttribute('info-wins')
+playerInfoWins.setAttribute('class', 'info-wins')
+
+
+roundTopDiv.append(roundTopText, roundTopNumText)
+roundBottomDiv.append(roundBottomLeftDiv, roundBottomRightDiv)
+roundDiv.append(roundTopDiv, roundBottomDiv)
+
+
+
+
+pcInfoContainer.append(pcInfoName, pcInfoChoice, pcInfoWins);
+playerInfoContainer.append(playerInfoName, playerInfoChoice, playerInfoWins);
+
+pcDiv.append(pcImg, pcInfoContainer);
+playerDiv.append(playerImg, playerInfoContainer)
+
+displayDiv.append(pcDiv, roundDiv, playerDiv) 
+
+
+startEl.append(displayDiv)
