@@ -137,20 +137,26 @@ function playRound(pc, user) {
 }
 
 function updatePage() {
-    pcInfoChoice.textContent = `Choice of weapon ${pcChoice}`
+    pcInfoChoice.textContent = `Choice of weapon: ${pcChoice}`
     pcInfoWins.textContent = `Wins: ${pcWins} Loss: ${playerWins}`
     roundTopNumText.textContent = rounds
-    playerInfoChoice.textContent = `Choice of weapon ${pcChoice}`
-    playerInfoWins.textContent = `Wins: ${pcWins} Loss: ${playerWins}`
+    playerInfoChoice.textContent = `Choice of weapon: ${playerChoice}`
+    playerInfoWins.textContent = `Wins: ${playerWins} Loss: ${pcWins}`
     playerImg.setAttribute('src', `${playerImgArray[pcWins]}`)
     pcImg.setAttribute('src', './assets/computer.gif')
     if (win === true) {
         roundBottomRightDiv.setAttribute('style', 'background: var(--green);')
         roundBottomLeftDiv.setAttribute('style', 'background: ;')
-    } else {
+        roundBottomCenterDiv.setAttribute('style', 'background: ;')
+    } else if (loss === true) {
         roundBottomLeftDiv.setAttribute('style', 'background: var(--red);')
         roundBottomRightDiv.setAttribute('style', 'background: ;')
-    }
+        roundBottomCenterDiv.setAttribute('style', 'background: ;')
+    } else if (tie === true) {
+        roundBottomLeftDiv.setAttribute('style', 'background: ;')
+        roundBottomRightDiv.setAttribute('style', 'background: ;')
+        roundBottomCenterDiv.setAttribute('style', 'background: var(--light);')
+}
 }
 
 
@@ -163,7 +169,7 @@ displayDiv.setAttribute('id', 'main-div')
 
 
 const pcDiv = document.createElement('div')
-pcDiv.setAttribute('class', 'card-div')
+pcDiv.setAttribute('class', 'pc-card-div')
 
 const pcImg = document.createElement('img')
 pcImg.setAttribute('class', 'card-img')
@@ -177,7 +183,7 @@ pcInfoName.textContent = "Master Computer"
 pcInfoName.setAttribute('class', 'info-name')
 
 const pcInfoChoice = document.createElement('h3')
-pcInfoChoice.textContent = `Choice of weapon ${pcChoice}`
+pcInfoChoice.textContent = `Choice of weapon: ${pcChoice}`
 pcInfoChoice.setAttribute('class', 'info-choice')
 
 const pcInfoWins = document.createElement('h3')
@@ -190,6 +196,7 @@ const roundDiv = document.createElement('div')
 roundDiv.setAttribute('class', 'round-div')
 
 const roundTopDiv = document.createElement('div')
+roundTopDiv.setAttribute('id', 'round-top-container')
 
 const roundTopText = document.createElement('h2')
 roundTopText.textContent = "Round"
@@ -199,11 +206,16 @@ roundTopNumText.textContent = rounds
 roundTopNumText.setAttribute('id', 'round-num')
 
 const roundBottomDiv = document.createElement('div')
+roundBottomDiv.setAttribute('id', 'round-bottom-container')
 
 const roundBottomLeftDiv = document.createElement('div')
 roundBottomLeftDiv.setAttribute('id', 'center-w')
 roundBottomLeftDiv.setAttribute('class', 'w-l-box')
 roundBottomLeftDiv.textContent = "L"
+const roundBottomCenterDiv = document.createElement('div')
+roundBottomCenterDiv.setAttribute('id', 'center-t')
+roundBottomCenterDiv.setAttribute('class', 'w-l-box')
+roundBottomCenterDiv.textContent = "T"
 const roundBottomRightDiv = document.createElement('div')
 roundBottomRightDiv.setAttribute('id', 'center-l')
 roundBottomRightDiv.setAttribute('class', 'w-l-box')
@@ -212,10 +224,10 @@ roundBottomRightDiv.textContent = "W"
 
 
 const playerDiv = document.createElement('div')
-playerDiv.setAttribute('class', 'card-div')
+playerDiv.setAttribute('class', 'player-card-div')
 
 const playerImg = document.createElement('img')
-playerImg.setAttribute('id', 'card-img')
+playerImg.setAttribute('class', 'card-img')
 playerImg.setAttribute('src', `${playerImgArray[pcWins]}`)
 
 const playerInfoContainer = document.createElement('div')
@@ -226,7 +238,7 @@ playerInfoName.textContent = 'user'
 playerInfoName.setAttribute('class', 'info-name')
 
 const playerInfoChoice = document.createElement('h3')
-playerInfoChoice.textContent = `Choice of weapon ${playerChoice}`
+playerInfoChoice.textContent = `Choice of weapon: ${playerChoice}`
 playerInfoChoice.setAttribute('class', 'info-choice')
 
 const playerInfoWins = document.createElement('h3')
@@ -235,7 +247,7 @@ playerInfoWins.setAttribute('class', 'info-wins')
 
 
 roundTopDiv.append(roundTopText, roundTopNumText)
-roundBottomDiv.append(roundBottomLeftDiv, roundBottomRightDiv)
+roundBottomDiv.append(roundBottomLeftDiv, roundBottomCenterDiv, roundBottomRightDiv)
 roundDiv.append(roundTopDiv, roundBottomDiv)
 
 

@@ -83,6 +83,12 @@ html {
 }
 button img {
     width: 60%;
+    height: 40%;
+    border-radius: 100px;
+    background-color: #76c2af;
+}
+#rock {
+    padding: 8px;
 }
 
 #button-container button:hover {
@@ -104,4 +110,75 @@ button img {
 }
 #submit-btn:hover {
     background-color: rgba(246, 231, 203, .5) !important;
+}
+
+
+
+#start-el {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+#main-div {
+    display: flex;
+    background-color: var(--gray);
+    padding: 40px;
+}
+
+.card-img {
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    align-self: center;
+
+}
+
+.info-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    line-height: 40px;
+}
+
+.pc-card-div {
+    display: flex;
+    border: 2px solid black;
+    background-color: rgba(98, 146, 158, .6) ;
+}
+
+.player-card-div {
+    display: flex;
+    flex-direction: row-reverse;
+    border: 2px solid black;
+    background-color: rgba(98, 146, 158, .6) ;
+
+}
+
+.round-div {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    justify-content: center;
+}
+
+#round-bottom-container {
+    display: flex;
+    justify-content: center;
+}
+
+#round-top-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    line-height: 30px;
+}
+
+.w-l-box {
+    width: 32%;
+    text-align: center;
+    font-size: 100%;
+    border: 3px solid black;
+    padding: 5px;
 }
